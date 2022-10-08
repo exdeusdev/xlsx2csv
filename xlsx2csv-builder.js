@@ -145,6 +145,7 @@ export default function xlsx2csvBuilder(Zip, connect) {
             max = Infinity,
         } = options
 
+        let sheet = []
         let cells = []
         let i = 0
 
@@ -156,7 +157,7 @@ export default function xlsx2csvBuilder(Zip, connect) {
                     if (count > max) {
                         stop()
                     } else {
-                        callback(cells)
+                        sheet.push(cells)
                         count++
                     }
                 }
@@ -214,6 +215,7 @@ export default function xlsx2csvBuilder(Zip, connect) {
                 }
             }
         })
+        callback(sheet)
     }
 
     return async function xlsx2csv(xlsx, callback = console.log, options = {}) {
